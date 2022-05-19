@@ -1,0 +1,43 @@
+- name: update all packages
+  apt:
+    update_cache: yes
+
+- name: Download binary file
+  block: 
+    - get_url:
+        url: "{{ url }}"
+        dest: "{{ binary_dest }}"
+  rescue:
+    - name: Print when errors came
+      debug:
+        msg: 'An error occured please look into it.'
+
+- name: install libclass-methodmaker-perl
+  apt:
+    name: libclass-methodmaker-perl
+    state: present
+
+- name: install data note binary
+  apt:
+    deb: "{{ pkg }}"
+
+- name: copy my.cnf file
+  template: 
+    src: my.cnf 
+    dest: /etc/my.cnf
+
+- name: Creates mysql directory
+  file:
+    path: "{{ mysql_data_dir }}"
+    state: directory
+
+- name: copying ndbd.service file
+  copy: 
+    src: ndbd.service
+    dest: "{{ ndbd_service }}"
+  notify:
+    - start ndbd service
+
+- name: Just force systemd to reread config
+  systemd:
+    daemon_reload: yes

@@ -1,0 +1,17 @@
+dependencies:
+  - libaio1
+  - libmecab2
+pkg:
+  - /home/manager/install/mysql-common_8.0.28-1ubuntu20.04_amd64.deb
+  - /home/manager/install/mysql-cluster-community-client-plugins_8.0.28-1ubuntu20.04_amd64.deb
+  - /home/manager/install/mysql-cluster-community-client-core_8.0.28-1ubuntu20.04_amd64.deb
+  - /home/manager/install/mysql-cluster-community-client_8.0.28-1ubuntu20.04_amd64.deb
+  - /home/manager/install/mysql-client_8.0.28-1ubuntu20.04_amd64.deb
+  - /home/manager/install/mysql-cluster-community-server-core_8.0.28-1ubuntu20.04_amd64.deb
+pkg_2:
+  - /home/manager/install/mysql-cluster-community-server_8.0.28-1ubuntu20.04_amd64.deb
+  - /home/manager/install/mysql-server_8.0.28-1ubuntu20.04_amd64.deb
+url: https://cdn.mysql.com//Downloads/MySQL-Cluster-8.0/mysql-cluster_8.0.28-1ubuntu20.04_amd64.deb-bundle.tar
+binary_dest: /home/manager/
+dir_dest: /home/manager/install
+tar_dest: /home/manager/mysql-cluster_8.0.28-1ubuntu20.04_amd64.deb-bundle.tar

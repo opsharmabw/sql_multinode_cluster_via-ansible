@@ -1,0 +1,5 @@
+url: https://cdn.mysql.com//Downloads/MySQL-Cluster-8.0/mysql-cluster-community-data-node_8.0.28-1ubuntu20.04_amd64.deb
+binary_dest: /home/datanodes/
+pkg: mysql-cluster-community-data-node_8.0.28-1ubuntu20.04_amd64.deb
+mysql_data_dir: /usr/local/mysql/data
+ndbd_service: /etc/systemd/system/ndbd.service

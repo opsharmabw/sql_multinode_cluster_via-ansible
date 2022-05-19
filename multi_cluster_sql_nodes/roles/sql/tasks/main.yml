@@ -1,0 +1,69 @@
+- name: update all packages
+  apt:
+    update_cache: yes
+
+- name: Install dependencies
+  apt:
+    pkg: "{{ dependencies }}"
+
+- name: Download binaries
+  get_url:
+    url: "{{ url }}"
+    dest: "{{ binary_dest }}"
+
+- name: create directory
+  file:
+    path: "{{ dir_dest }}"
+    state: directory
+
+- name: untar the file
+  unarchive:
+    src: "{{ tar_dest }}"
+    dest: "{{ dir_dest }}"
+    remote_src: yes
+
+- name: install binaries
+  apt:
+    deb: "{{ item }}"
+  loop: "{{ pkg }}"
+
+- name: Set MySQL root password
+  debconf:
+    name: mysql-cluster-community-server
+    question: mysql-cluster-community-server/root-pass
+    value: "{{ pass }}"
+    vtype: password
+
+- name: Confirm MySQL root password
+  debconf:
+    name: mysql-cluster-community-server
+    question: mysql-cluster-community-server/re-root-pass
+    value: "{{ pass }}"
+    vtype: password
+
+- name: Enable Legacy Authentication Method
+  debconf:
+    name: mysql-cluster-community-server
+    question: mysql-server/default-auth-override
+    value: Use Legacy Authentication Method (Retain MySQL 5.x Compatibility)
+    vtype: select
+
+- name: installing other binaries
+  apt:
+    deb: "{{ item }}"
+  loop: "{{ pkg_2 }}"
+
+- name: copy my.cnf file
+  template: 
+    src: my.cnf 
+    dest: /etc/my.cnf
+
+- name: change config.
+  shell: cat /etc/my.cnf /etc/mysql/my.cnf
+
+- name: mysql restart
+  service:
+    name: mysql
+    state: started
+  notify:
+    - start mysql service

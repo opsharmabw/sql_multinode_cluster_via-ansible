@@ -1,0 +1,38 @@
+- name: update all packages
+  apt:
+    update_cache: yes
+
+- name: Download binary file
+  block: 
+    - get_url:
+        url: "{{ url }}"
+        dest: "{{ binary_dest }}"
+  rescue:
+    - name: Print when errors came
+      debug:
+        msg: 'An error occured please look into it.'
+
+- name: install package
+  apt:
+    deb: "{{ pkg }}"
+
+- name: create directory
+  file:
+    path: "{{ cluster }}"
+    state: directory
+
+- name: Copy config
+  template: 
+    src: config.ini
+    dest: "{{ config_file }}"
+
+- name: copy ndb_mgmd.service file
+  copy:
+    src: ndb_mgmd.service
+    dest: "{{ ndbd_path }}"
+  notify:
+    - start ndb_mgmd service
+
+- name: reload daemon
+  systemd:
+    daemon_reload: yes

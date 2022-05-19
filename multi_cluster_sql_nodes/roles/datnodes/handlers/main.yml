@@ -1,0 +1,4 @@
+- name: start ndbd service
+  service:
+    name: ndbd
+    state: started

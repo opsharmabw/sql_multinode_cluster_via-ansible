@@ -1,0 +1,4 @@
+- name: start ndb_mgmd service
+  service:
+    name: ndb_mgmd
+    state: started

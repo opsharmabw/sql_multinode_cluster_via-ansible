@@ -1,0 +1,6 @@
+url: https://cdn.mysql.com//Downloads/MySQL-Cluster-8.0/mysql-cluster-community-management-server_8.0.28-1ubuntu20.04_amd64.deb
+binary_dest: /home/manager/
+pkg: mysql-cluster-community-management-server_8.0.28-1ubuntu20.04_amd64.deb
+config_file: /var/lib/mysql-cluster/config.ini
+cluster: /var/lib/mysql-cluster
+ndbd_path: /etc/systemd/system/ndb_mgmd.service

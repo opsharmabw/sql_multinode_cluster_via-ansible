@@ -1,0 +1,20 @@
+- hosts: management
+  gather_facts: True
+  remote_user: manager
+  become: true
+  roles:
+  - management_cluster
+
+- hosts: datanodes
+  gather_facts: True
+  remote_user: datanodes
+  become: true
+  roles:
+  - datnodes
+
+- hosts: management
+  gather_facts: True
+  remote_user: manager
+  become: true
+  roles:
+  - sql
